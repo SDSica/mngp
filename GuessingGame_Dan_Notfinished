@@ -1,0 +1,53 @@
+package de.uniwue.gdp.guessing;
+import java.text.ParseException;
+import java.util.Locale;
+import java.util.Scanner;
+import java.util.Random;
+
+public class GuessingGame {
+    public static void main(String[] args){
+        boolean playaction = true;
+        System.out.println("Welcome!");
+        Play();
+    }
+
+    public static void Play (){
+        Scanner scanner = new Scanner(System.in);
+        boolean playaction;
+        int hiddennumber = (int) (Math.random() * 1001);
+        do {
+            System.out.println("Please enter your guess");
+            String userinput = scanner.nextLine();
+            playaction = CheckUserInput(userinput, hiddennumber);
+        } while (playaction);
+    }
+
+    public static boolean CheckUserInput(String userinput, int hiddennumber){
+        Scanner scanner = new Scanner(System.in);
+        int userguess;
+        try {
+            userguess = Integer.parseInt(userinput);
+
+            if (userguess < hiddennumber){
+                System.out.println("Too small!");
+            }
+            else if (userguess > hiddennumber){
+                System.out.println("Too big!");
+            }
+            else if(userguess == hiddennumber){
+                System.out.println("You win!");
+                System.out.println("Play another round? [y/N]");
+                String playagain = scanner.nextLine().toLowerCase();
+                if (playagain.equals("y")){
+                    return true;
+                }
+                else {
+                    System.out.println("Game over!");
+                    return false;
+                }
+            }
+        } catch (Exception e) {
+        System.out.println("Not a number - Try again!"); }
+        return true;
+    }
+}
